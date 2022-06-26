@@ -9,7 +9,11 @@ class LoginScreen extends StatelessWidget {
     return Scaffold(
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [getHeader(context), getMiddle(context), getFooter(context)],
+        children: [
+          getHeader(context),
+          getMiddle(context),
+          getFooter(context),
+        ],
       ),
     );
   }
