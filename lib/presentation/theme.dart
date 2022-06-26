@@ -22,21 +22,24 @@ final _border = OutlineInputBorder(
       style: BorderStyle.solid,
     ));
 
-final lightTheme = ThemeData(
-    inputDecorationTheme: InputDecorationTheme(
-        enabledBorder: _border,
-        border: _border,
-        iconColor: DeliveryColors().purple),
-    textTheme: GoogleFonts.poppinsTextTheme().apply(
-        bodyColor: DeliveryColors().purple,
-        displayColor: DeliveryColors().purple));
+class ThemeApp {
+  final lightTheme = ThemeData(
+      inputDecorationTheme: InputDecorationTheme(
+          enabledBorder: _border,
+          border: _border,
+          iconColor: DeliveryColors().purple),
+      textTheme: GoogleFonts.poppinsTextTheme().apply(
+          bodyColor: DeliveryColors().purple,
+          displayColor: DeliveryColors().purple));
 
-final darkTheme = ThemeData(
-    scaffoldBackgroundColor: DeliveryColors().dark,
-    inputDecorationTheme: InputDecorationTheme(
-        enabledBorder: _border,
-        border: _border,
-        hintStyle: TextStyle(color: DeliveryColors().white),
-        iconColor: DeliveryColors().gree),
-    textTheme: GoogleFonts.poppinsTextTheme().apply(
-        bodyColor: DeliveryColors().gree, displayColor: DeliveryColors().gree));
+  final darkTheme = ThemeData(
+      scaffoldBackgroundColor: DeliveryColors().dark,
+      inputDecorationTheme: InputDecorationTheme(
+          enabledBorder: _border,
+          border: _border,
+          hintStyle: TextStyle(color: DeliveryColors().white),
+          iconColor: DeliveryColors().gree),
+      textTheme: GoogleFonts.poppinsTextTheme().apply(
+          bodyColor: DeliveryColors().gree,
+          displayColor: DeliveryColors().gree));
+}
