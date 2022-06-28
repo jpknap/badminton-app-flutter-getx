@@ -24,6 +24,7 @@ final _border = OutlineInputBorder(
 
 class ThemeApp {
   final lightTheme = ThemeData(
+      appBarTheme: AppBarTheme(color: DeliveryColors().gree),
       inputDecorationTheme: InputDecorationTheme(
           enabledBorder: _border,
           border: _border,
@@ -33,6 +34,7 @@ class ThemeApp {
           displayColor: DeliveryColors().purple));
 
   final darkTheme = ThemeData(
+      appBarTheme: AppBarTheme(color: DeliveryColors().purple),
       scaffoldBackgroundColor: DeliveryColors().dark,
       inputDecorationTheme: InputDecorationTheme(
           enabledBorder: _border,

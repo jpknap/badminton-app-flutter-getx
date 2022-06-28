@@ -1,3 +1,4 @@
+import 'package:app_burger/presentation/home/home_screen.dart';
 import 'package:app_burger/presentation/theme.dart';
 import 'package:flutter/material.dart';
 
@@ -114,23 +115,29 @@ class LoginScreen extends StatelessWidget {
     return SafeArea(
       child: Padding(
           padding: const EdgeInsets.all(25),
-          child: Container(
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                gradient: LinearGradient(
-                    begin: Alignment.centerRight,
-                    end: Alignment.centerLeft,
-                    colors: gradientBackground)),
-            height: 50,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                'Login',
-                style: Theme.of(context)
-                    .textTheme
-                    .headline6
-                    ?.copyWith(color: DeliveryColors().white),
-                textAlign: TextAlign.center,
+          child: InkWell(
+            onTap: () => {
+              Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (_) => const HomeScreen()))
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  gradient: LinearGradient(
+                      begin: Alignment.centerRight,
+                      end: Alignment.centerLeft,
+                      colors: gradientBackground)),
+              height: 50,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'Login',
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline6
+                      ?.copyWith(color: DeliveryColors().white),
+                  textAlign: TextAlign.center,
+                ),
               ),
             ),
           )),
