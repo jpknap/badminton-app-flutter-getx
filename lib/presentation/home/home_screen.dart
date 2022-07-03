@@ -1,4 +1,7 @@
+import 'package:app_burger/presentation/home/favourites/favourites_screen.dart';
 import 'package:app_burger/presentation/home/products/products_screen.dart';
+import 'package:app_burger/presentation/home/profile/profile_screen.dart';
+import 'package:app_burger/presentation/home/shops/shops_screen.dart';
 import 'package:app_burger/presentation/theme.dart';
 import 'package:flutter/material.dart';
 
@@ -28,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 index: currentIndex,
                 children: [
                   ProductsScreen(),
-                  Text("hola mundo $currentIndex"),
+                  ShopScreen(),
                   CartScreen(
                     goToProducts: () {
                       setState(() {
@@ -36,8 +39,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       });
                     },
                   ),
-                  Text("hola mundo $currentIndex"),
-                  Text("hola mundo $currentIndex"),
+                  FavouritesScreen(),
+                  ProfileScreen(),
                 ],
               )),
               _DeliveryNavigationBar(

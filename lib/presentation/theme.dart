@@ -11,6 +11,7 @@ class DeliveryColors {
   final veryLightGrey = Color(0xFFF3F3F3);
   final white = Color(0xFFFFFFFF);
   final pink = Color(0xFFF5638B);
+  final redDanger = Color.fromARGB(255, 189, 80, 80);
 }
 
 final gradientBackground = [

@@ -1,4 +1,5 @@
 import 'package:app_burger/presentation/theme.dart';
+import 'package:app_burger/presentation/widgets/delivery_button/delivery_buttom.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -38,7 +39,7 @@ class _CartScreenState extends State<CartScreen> {
         color: Theme.of(context).textTheme.titleLarge?.color,
       ),
       Expanded(
-        child: _FullCaty(),
+        child: _FullCart(),
       )
     ]));
   }
@@ -135,8 +136,8 @@ class _EmpyCart extends StatelessWidget {
   }
 }
 
-class _FullCaty extends StatelessWidget {
-  _FullCaty({super.key});
+class _FullCart extends StatelessWidget {
+  _FullCart({super.key});
   final List<Map> myProducts = List.generate(
       6,
       (index) => {
@@ -151,9 +152,8 @@ class _FullCaty extends StatelessWidget {
     return Column(
       children: [
         Expanded(
-          flex: 3,
+          flex: 2,
           child: Container(
-            color: DeliveryColors().pink,
             child: ListView.builder(
                 itemCount: myProducts.length,
                 scrollDirection: Axis.horizontal,
@@ -166,7 +166,71 @@ class _FullCaty extends StatelessWidget {
         ),
         Expanded(
           flex: 2,
-          child: Container(color: DeliveryColors().purple),
+          child: Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 8.0, vertical: 50.0),
+            child: Container(
+              decoration: BoxDecoration(
+                  color: Theme.of(context).appBarTheme.backgroundColor,
+                  borderRadius: BorderRadius.circular(25)),
+              child: Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Expanded(
+                        child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("Sub-total"),
+                            Text("\$ 12302"),
+                          ],
+                        ),
+                        SizedBox(height: 10),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("Delivery"),
+                            Text("free"),
+                          ],
+                        ),
+                        SizedBox(height: 30),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Total",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleMedium!
+                                  .copyWith(fontWeight: FontWeight.bold),
+                            ),
+                            Text(
+                              "\$ 12304",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleMedium!
+                                  .copyWith(fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        )
+                      ],
+                    )),
+                    DeliveryButton(
+                      onTap: () {},
+                      text: "Buy items",
+                      textStyle: Theme.of(context)
+                          .textTheme
+                          .titleMedium!
+                          .copyWith(color: DeliveryColors().white),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ),
         ),
       ],
     );
@@ -183,45 +247,81 @@ class _ItemProductCart extends StatelessWidget {
     final String description = product['description'];
     final int sale = product['sale'];
 
-    return Card(
-      elevation: 8,
-      color: Theme.of(context).appBarTheme.backgroundColor,
-      child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          children: [
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 10),
-              child: CircleAvatar(
-                radius: 35,
-                child: Icon(
-                  Icons.person,
-                  size: 50,
-                ),
-              ),
-            ),
-            Expanded(
-                child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    return Padding(
+      padding: const EdgeInsets.all(15.0),
+      child: Stack(children: [
+        Card(
+          elevation: 8,
+          color: Theme.of(context).appBarTheme.backgroundColor,
+          child: Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Column(
               children: [
-                Text(name, style: Theme.of(context).textTheme.titleSmall),
-                SizedBox(
-                  height: 4,
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 10),
+                  child: CircleAvatar(
+                    radius: 35,
+                    child: Icon(
+                      Icons.person,
+                      size: 50,
+                    ),
+                  ),
                 ),
-                Text(description),
-                SizedBox(
-                  height: 2,
-                ),
-                Text("\$ $sale",
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleSmall
-                        ?.copyWith(color: Theme.of(context).iconTheme.color)),
+                Expanded(
+                    child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Text(name, style: Theme.of(context).textTheme.titleSmall),
+                    Text(description),
+                    Row(
+                      children: [
+                        IconButton(
+                          onPressed: () {},
+                          icon: Icon(Icons.remove),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 5),
+                          child: Container(
+                            color: DeliveryColors().white,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 8.0, vertical: 5.0),
+                              child: Text(
+                                "5",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleMedium!
+                                    .copyWith(
+                                        color: DeliveryColors().dark,
+                                        fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ),
+                        ),
+                        IconButton(
+                          onPressed: () {},
+                          icon: Icon(Icons.add),
+                        ),
+                      ],
+                    ),
+                    Text("\$ $sale",
+                        style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                            color: Theme.of(context).iconTheme.color)),
+                  ],
+                )),
               ],
-            )),
-          ],
+            ),
+          ),
         ),
-      ),
+        Positioned(
+          right: 0,
+          top: 0,
+          child: CircleAvatar(
+            backgroundColor: DeliveryColors().redDanger,
+            child: Icon(Icons.delete_outline_outlined),
+          ),
+        ),
+      ]),
     );
   }
 }
