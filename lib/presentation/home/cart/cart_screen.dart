@@ -126,7 +126,7 @@ class _EmpyCart extends StatelessWidget {
         ),
         ElevatedButton(
           style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(DeliveryColors().purple),
+            backgroundColor: MaterialStateProperty.all(DeliveryColors.purple),
           ),
           onPressed: goToProducts,
           child: const Text('Go to elments'),
@@ -224,7 +224,7 @@ class _FullCart extends StatelessWidget {
                       textStyle: Theme.of(context)
                           .textTheme
                           .titleMedium!
-                          .copyWith(color: DeliveryColors().white),
+                          .copyWith(color: DeliveryColors.white),
                     )
                   ],
                 ),
@@ -282,7 +282,7 @@ class _ItemProductCart extends StatelessWidget {
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 5),
                           child: Container(
-                            color: DeliveryColors().white,
+                            color: DeliveryColors.white,
                             child: Padding(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 8.0, vertical: 5.0),
@@ -292,7 +292,7 @@ class _ItemProductCart extends StatelessWidget {
                                     .textTheme
                                     .titleMedium!
                                     .copyWith(
-                                        color: DeliveryColors().dark,
+                                        color: DeliveryColors.dark,
                                         fontWeight: FontWeight.bold),
                               ),
                             ),
@@ -317,7 +317,7 @@ class _ItemProductCart extends StatelessWidget {
           right: 0,
           top: 0,
           child: CircleAvatar(
-            backgroundColor: DeliveryColors().redDanger,
+            backgroundColor: DeliveryColors.redDanger,
             child: Icon(Icons.delete_outline_outlined),
           ),
         ),

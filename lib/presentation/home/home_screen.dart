@@ -82,14 +82,14 @@ class _DeliveryNavigationBar extends StatelessWidget {
               Material(
                 color: Theme.of(context).appBarTheme.backgroundColor,
                 child: IconButton(
-                    color: index == 0 ? DeliveryColors().gree : null,
+                    color: index == 0 ? DeliveryColors.gree : null,
                     onPressed: () => onIndexSelected(0),
                     icon: Icon(Icons.home_outlined)),
               ),
               Material(
                 color: Theme.of(context).appBarTheme.backgroundColor,
                 child: IconButton(
-                    color: index == 1 ? DeliveryColors().gree : null,
+                    color: index == 1 ? DeliveryColors.gree : null,
                     onPressed: () => onIndexSelected(1),
                     icon: Icon(Icons.store_outlined)),
               ),
@@ -97,15 +97,15 @@ class _DeliveryNavigationBar extends StatelessWidget {
                 padding: EdgeInsets.symmetric(vertical: 5.0),
                 child: Container(
                   decoration: BoxDecoration(
-                    color: DeliveryColors().purple,
+                    color: DeliveryColors.purple,
                     borderRadius: BorderRadius.circular(50),
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: IconButton(
                         color: index == 2
-                            ? DeliveryColors().gree
-                            : DeliveryColors().white,
+                            ? DeliveryColors.gree
+                            : DeliveryColors.white,
                         onPressed: () => onIndexSelected(2),
                         icon: Icon(Icons.shopping_basket_outlined)),
                   ),
@@ -114,14 +114,14 @@ class _DeliveryNavigationBar extends StatelessWidget {
               Material(
                 color: Theme.of(context).appBarTheme.backgroundColor,
                 child: IconButton(
-                    color: index == 3 ? DeliveryColors().gree : null,
+                    color: index == 3 ? DeliveryColors.gree : null,
                     onPressed: () => onIndexSelected(3),
                     icon: Icon(Icons.favorite_border)),
               ),
               Material(
                 color: Theme.of(context).appBarTheme.backgroundColor,
                 child: IconButton(
-                    color: index == 4 ? DeliveryColors().gree : null,
+                    color: index == 4 ? DeliveryColors.gree : null,
                     onPressed: () => onIndexSelected(4),
                     icon: Icon(Icons.person_outline)),
               ),

@@ -39,7 +39,7 @@ class _SplashScreenState extends State<SplashScreen> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         CircleAvatar(
-          backgroundColor: DeliveryColors().white,
+          backgroundColor: DeliveryColors.white,
           radius: 50,
           child: Padding(
             padding: EdgeInsets.all(12.0),

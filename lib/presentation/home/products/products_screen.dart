@@ -119,7 +119,7 @@ class _ItemProduct extends StatelessWidget {
             DeliveryButton(
               onTap: () => {},
               textStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  color: DeliveryColors().white,
+                  color: DeliveryColors.white,
                   fontSize: 15,
                   wordSpacing: 2,
                   letterSpacing: 1.2),

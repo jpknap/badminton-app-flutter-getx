@@ -38,7 +38,7 @@ class ProfileScreen extends StatelessWidget {
                         children: [
                           Container(
                             decoration: BoxDecoration(
-                                color: DeliveryColors().gree,
+                                color: DeliveryColors.gree,
                                 borderRadius: BorderRadius.circular(50)),
                             child: const Padding(
                               padding: EdgeInsets.all(3),
@@ -56,7 +56,7 @@ class ProfileScreen extends StatelessWidget {
                             right: 0,
                             child: CircleAvatar(
                               radius: 20,
-                              backgroundColor: DeliveryColors().purple,
+                              backgroundColor: DeliveryColors.purple,
                               child: const Padding(
                                 padding: EdgeInsets.all(8.0),
                                 child: Icon(
@@ -128,8 +128,8 @@ class ProfileScreen extends StatelessWidget {
                                       .copyWith(fontWeight: FontWeight.bold),
                                 ),
                                 Switch(
-                                  activeColor: DeliveryColors().purple,
-                                  activeTrackColor: DeliveryColors().ligthGrey,
+                                  activeColor: DeliveryColors.purple,
+                                  activeTrackColor: DeliveryColors.ligthGrey,
                                   value: true,
                                   onChanged: (bool value) {},
                                 ),
@@ -151,7 +151,7 @@ class ProfileScreen extends StatelessWidget {
                 child: ElevatedButton(
                   style: ButtonStyle(
                     backgroundColor:
-                        MaterialStateProperty.all(DeliveryColors().purple),
+                        MaterialStateProperty.all(DeliveryColors.purple),
                   ),
                   onPressed: () {},
                   child: const Text('Logout'),

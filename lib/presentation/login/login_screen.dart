@@ -42,7 +42,7 @@ class LoginScreen extends StatelessWidget {
             Align(
                 alignment: Alignment.bottomCenter,
                 child: CircleAvatar(
-                  backgroundColor: DeliveryColors().white,
+                  backgroundColor: DeliveryColors.white,
                   radius: 50,
                   child: Padding(
                     padding: const EdgeInsets.all(12.0),
@@ -119,7 +119,7 @@ class LoginScreen extends StatelessWidget {
       textStyle: Theme.of(context)
           .textTheme
           .headline6!
-          .copyWith(color: DeliveryColors().white),
+          .copyWith(color: DeliveryColors.white),
       padding: const EdgeInsets.all(8.0),
       onTap: () => {
         Navigator.of(context).pushReplacement(
