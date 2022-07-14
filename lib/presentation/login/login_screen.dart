@@ -1,22 +1,44 @@
 import 'package:app_burger/presentation/home/home_screen.dart';
+import 'package:app_burger/presentation/login/login_controller.dart';
+import 'package:app_burger/presentation/routes/delivery_routes.dart';
 import 'package:app_burger/presentation/theme.dart';
 import 'package:app_burger/presentation/widgets/delivery_button/delivery_buttom.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends GetWidget<LoginController> {
   const LoginScreen({super.key});
+
+  void login() async {
+    final bool result = await controller.login();
+    if (result) {
+      Get.offAllNamed(DeliveryRoutes.home);
+    } else {
+      Get.snackbar('Error Login', 'Usuario o contraseña invalidos');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
+      body: Stack(children: [
+        Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
           getHeader(context),
           getMiddle(context),
           getFooter(context),
-        ],
-      ),
+        ]),
+        Positioned.fill(child: Obx(() {
+          if (controller.loginState.value == LoginState.loading) {
+            return Container(
+              color: DeliveryColors.grey.withAlpha(100),
+              child: const Center(child: CircularProgressIndicator()),
+            );
+          } else {
+            return const SizedBox.shrink();
+          }
+        }))
+      ]),
     );
   }
 
@@ -85,8 +107,9 @@ class LoginScreen extends StatelessWidget {
                       ?.copyWith(fontWeight: FontWeight.bold),
                   textAlign: TextAlign.start,
                 ),
-                const TextField(
-                  decoration: InputDecoration(
+                TextField(
+                  controller: controller.usernameTextController,
+                  decoration: const InputDecoration(
                       hintText: 'Username',
                       prefixIcon: Icon(Icons.person_outline)),
                 ),
@@ -101,7 +124,9 @@ class LoginScreen extends StatelessWidget {
                       ?.copyWith(fontWeight: FontWeight.bold),
                   textAlign: TextAlign.start,
                 ),
-                const TextField(
+                TextField(
+                  controller: controller.passwordTextControlller,
+                  obscureText: true,
                   decoration: InputDecoration(
                       hintText: 'Password',
                       prefixIcon: Icon(Icons.lock_outline)),
@@ -121,10 +146,7 @@ class LoginScreen extends StatelessWidget {
           .headline6!
           .copyWith(color: DeliveryColors.white),
       padding: const EdgeInsets.all(8.0),
-      onTap: () => {
-        Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (_) => const HomeScreen()))
-      },
+      onTap: () => {login()},
     ));
   }
 }
