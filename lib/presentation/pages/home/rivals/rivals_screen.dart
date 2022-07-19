@@ -1,17 +1,23 @@
+import 'package:app_burger/domain/model/product.dart';
+import 'package:app_burger/domain/model/rival.dart';
+import 'package:app_burger/presentation/pages/home/home_controller.dart';
 import 'package:app_burger/presentation/theme.dart';
 import 'package:app_burger/presentation/widgets/delivery_button/delivery_buttom.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
 
-class ProductsScreen extends StatelessWidget {
-  final List<Map> myProducts = List.generate(
-      30,
-      (index) => {
-            "id": index,
-            "name": "Caro uwu $index",
-            "description": "Descripcion breve del producto",
-            "sale": 2455 + (index * 250)
-          }).toList();
-  ProductsScreen({super.key});
+final List<Rival> rivals = List.generate(
+    13,
+    (index) => Rival(
+        id: index,
+        name: "name",
+        lastname: "apellido",
+        victories: 0,
+        losses: 0,
+        image: ''));
+
+class RivalsScreen extends GetWidget<HomeController> {
+  const RivalsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +28,7 @@ class ProductsScreen extends StatelessWidget {
           Container(
             child: Center(
                 child: Text(
-              "Home",
+              "Jugadores",
               style: Theme.of(context).textTheme.titleLarge?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
@@ -41,7 +47,7 @@ class ProductsScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Text(
-                    "Products",
+                    "Jugadores",
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                   GridView.builder(
@@ -53,11 +59,11 @@ class ProductsScreen extends StatelessWidget {
                               childAspectRatio: 0.60,
                               crossAxisSpacing: 4,
                               mainAxisSpacing: 4),
-                      itemCount: myProducts.length,
+                      itemCount: rivals.length,
                       shrinkWrap: true,
                       itemBuilder: (BuildContext ctx, index) {
                         return _ItemProduct(
-                          product: myProducts[index],
+                          rival: rivals[index],
                         );
                       })
                 ],
@@ -71,15 +77,11 @@ class ProductsScreen extends StatelessWidget {
 }
 
 class _ItemProduct extends StatelessWidget {
-  final dynamic product;
-  const _ItemProduct({Key? key, required this.product}) : super(key: key);
+  final Rival rival;
+  const _ItemProduct({Key? key, required this.rival}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final String name = product['name'];
-    final String description = product['description'];
-    final int sale = product['sale'];
-
     return Card(
       elevation: 8,
       color: Theme.of(context).appBarTheme.backgroundColor,
@@ -101,19 +103,16 @@ class _ItemProduct extends StatelessWidget {
                 child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Text(name, style: Theme.of(context).textTheme.titleSmall),
+                Text("${rival.name} ${rival.lastname}",
+                    style: Theme.of(context).textTheme.titleSmall),
                 SizedBox(
                   height: 4,
                 ),
-                Text(description),
+                Text("Victorias : ${rival.victories}"),
                 SizedBox(
                   height: 2,
                 ),
-                Text("\$ $sale",
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleSmall
-                        ?.copyWith(color: Theme.of(context).iconTheme.color)),
+                Text("Derrotas : ${rival.losses}"),
               ],
             )),
             DeliveryButton(
@@ -123,7 +122,7 @@ class _ItemProduct extends StatelessWidget {
                   fontSize: 15,
                   wordSpacing: 2,
                   letterSpacing: 1.2),
-              text: "Ver mas",
+              text: "Desafiar",
             ),
           ],
         ),

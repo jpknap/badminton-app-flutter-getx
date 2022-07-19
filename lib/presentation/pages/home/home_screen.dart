@@ -1,21 +1,18 @@
-import 'package:app_burger/presentation/home/favourites/favourites_screen.dart';
-import 'package:app_burger/presentation/home/products/products_screen.dart';
-import 'package:app_burger/presentation/home/profile/profile_screen.dart';
-import 'package:app_burger/presentation/home/shops/shops_screen.dart';
+import 'package:app_burger/presentation/pages/home/favourites/favourites_screen.dart';
+import 'package:app_burger/presentation/pages/home/home_controller.dart';
+import 'package:app_burger/presentation/pages/home/products/products_screen.dart';
+import 'package:app_burger/presentation/pages/home/profile/profile_screen.dart';
+import 'package:app_burger/presentation/pages/home/rivals/rivals_screen.dart';
+import 'package:app_burger/presentation/pages/home/shops/shops_screen.dart';
 import 'package:app_burger/presentation/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
 
 import 'cart/cart_screen.dart';
+import 'create_match/create_match_screen.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
-
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  int currentIndex = 0;
+class HomeScreen extends GetWidget<HomeController> {
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,28 +23,22 @@ class _HomeScreenState extends State<HomeScreen> {
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Expanded(
-                  child: IndexedStack(
-                index: currentIndex,
-                children: [
-                  ProductsScreen(),
-                  ShopScreen(),
-                  CartScreen(
-                    goToProducts: () {
-                      setState(() {
-                        currentIndex = 0;
-                      });
-                    },
-                  ),
-                  FavouritesScreen(),
-                  ProfileScreen(),
-                ],
-              )),
-              _DeliveryNavigationBar(
-                  index: currentIndex,
-                  onIndexSelected: (index) => {
-                        setState((() => {currentIndex = index}))
-                      })
+              Expanded(child: Obx(() {
+                return IndexedStack(
+                    index: controller.indexHome.value,
+                    children: [
+                      RivalsScreen(),
+                      MatchsPendingScreen(),
+                      CreateMatchScreen(),
+                      MatchHistoryScreen(),
+                      ProfileScreen(),
+                    ]);
+              })),
+              Obx(() {
+                return _DeliveryNavigationBar(
+                    index: controller.indexHome.value,
+                    onIndexSelected: (index) => {controller.setIndex(index)});
+              })
             ],
           ),
         ),

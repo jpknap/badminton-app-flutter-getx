@@ -1,15 +1,11 @@
-import 'package:app_burger/presentation/home/home_screen.dart';
-import 'package:app_burger/presentation/login/login_controller.dart';
+import 'package:app_burger/presentation/pages/login/login_controller.dart';
 import 'package:app_burger/presentation/routes/delivery_routes.dart';
 import 'package:app_burger/presentation/theme.dart';
 import 'package:app_burger/presentation/widgets/delivery_button/delivery_buttom.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 
 class LoginScreen extends GetWidget<LoginController> {
-  const LoginScreen({super.key});
-
   void login() async {
     final bool result = await controller.login();
     if (result) {

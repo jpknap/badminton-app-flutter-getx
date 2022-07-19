@@ -1,14 +1,18 @@
-import 'package:app_burger/presentation/home/home_screen.dart';
-import 'package:app_burger/presentation/login/login_binding.dart';
-import 'package:app_burger/presentation/login/login_screen.dart';
-import 'package:app_burger/presentation/splash/splash_binding.dart';
-import 'package:app_burger/presentation/splash/splash_screen.dart';
+import 'package:app_burger/presentation/pages/home/create_match/select_user_scree.dart';
+import 'package:app_burger/presentation/pages/home/home_bindings.dart';
+import 'package:app_burger/presentation/pages/home/home_screen.dart';
+import 'package:app_burger/presentation/pages/home/profile/profile_binding.dart';
+import 'package:app_burger/presentation/pages/login/login_binding.dart';
+import 'package:app_burger/presentation/pages/login/login_screen.dart';
+import 'package:app_burger/presentation/pages/splash/splash_binding.dart';
+import 'package:app_burger/presentation/pages/splash/splash_screen.dart';
 import 'package:get/route_manager.dart';
 
 class DeliveryRoutes {
   static const String splash = '/splash';
   static const String login = '/login';
   static const String home = '/home';
+  static const String selectUser = '/select-user';
 }
 
 class DeliveryPages {
@@ -19,8 +23,20 @@ class DeliveryPages {
         binding: SplashBinding()),
     GetPage(
         name: DeliveryRoutes.login,
-        page: () => const LoginScreen(),
+        page: () => LoginScreen(),
         binding: LoginBinding()),
-    GetPage(name: DeliveryRoutes.home, page: () => const HomeScreen()),
+    GetPage(
+        name: DeliveryRoutes.home,
+        page: () => const HomeScreen(),
+        bindings: [
+          HomeBindings(),
+          ProfileBindings(),
+        ]),
+    GetPage(
+        name: DeliveryRoutes.selectUser,
+        page: () => const SelectPickerUser(),
+        bindings: [
+          HomeBindings(),
+        ]),
   ];
 }

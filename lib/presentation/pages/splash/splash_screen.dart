@@ -1,4 +1,4 @@
-import 'package:app_burger/presentation/splash/splash_controller.dart';
+import 'package:app_burger/presentation/pages/splash/splash_controller.dart';
 import 'package:app_burger/presentation/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
@@ -32,7 +32,7 @@ class SplashScreen extends GetWidget<SplashController> {
                 height: 15,
               ),
               Text(
-                'Burger App',
+                'Badminton App',
                 textAlign: TextAlign.center,
                 style: Theme.of(context)
                     .textTheme

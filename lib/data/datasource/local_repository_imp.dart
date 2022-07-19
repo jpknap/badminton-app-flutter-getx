@@ -28,7 +28,7 @@ class LocalResponsitoryImp implements LocalRepositoryInterface {
     await setSharedPreferences();
 
     final String token = await _sharedPreferences.getString(_prefToken) ?? '';
-    return '';
+    return token;
   }
 
   @override
@@ -40,15 +40,19 @@ class LocalResponsitoryImp implements LocalRepositoryInterface {
 
   @override
   Future<User> getUser() async {
+    await setSharedPreferences();
+
     final String name = _sharedPreferences.getString(_prefName) ?? '';
     final String username = _sharedPreferences.getString(_prefUsername) ?? '';
     final String image = _sharedPreferences.getString(_prefImage) ?? '';
-
-    return User(name: name, username: username, image: image);
+    User user = User(name: name, username: username, image: image);
+    return user;
   }
 
   @override
   Future<void> saveUser(User user) async {
+    await setSharedPreferences();
+
     await _sharedPreferences.setString(_prefName, user.name);
     await _sharedPreferences.setString(_prefUsername, user.username);
     await _sharedPreferences.setString(_prefImage, user.image);
@@ -56,11 +60,15 @@ class LocalResponsitoryImp implements LocalRepositoryInterface {
 
   @override
   Future<void> saveDarkMode(bool darkmode) async {
-    await _sharedPreferences.setBool(_prefName, darkmode);
+    await setSharedPreferences();
+    await _sharedPreferences.setBool(_prefDarkMode, darkmode);
   }
 
   @override
   Future<bool> isDarkMode() async {
-    return _sharedPreferences.getBool(_prefDarkMode) ?? false;
+    await setSharedPreferences();
+
+    bool? isDarkMode = await _sharedPreferences.getBool(_prefDarkMode);
+    return isDarkMode ?? false;
   }
 }
