@@ -37,6 +37,8 @@ dependencies:
   google_fonts: any
   get: ^4.6.5
   shared_preferences: ^2.0.15
+  intl: ^0.17.0
+  timeago: ^3.2.2
 
 dev_dependencies:
   flutter_test:

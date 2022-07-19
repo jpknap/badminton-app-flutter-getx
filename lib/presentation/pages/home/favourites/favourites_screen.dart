@@ -1,6 +1,6 @@
 import 'package:app_burger/domain/model/match.dart';
 import 'package:app_burger/domain/model/user.dart';
-import 'package:app_burger/presentation/theme.dart';
+import 'package:timeago/timeago.dart' as timeago;
 import 'package:flutter/material.dart';
 
 final List<BadmintonMatch> badmintonMatches = List.generate(
@@ -73,29 +73,38 @@ class RowMatchResume extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Card(
-        elevation: 8,
-        color: Colors.transparent,
-        child: Container(
-          decoration: BoxDecoration(
-              color: Theme.of(context).appBarTheme.backgroundColor,
-              borderRadius: BorderRadius.circular(10)),
-          child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Column(
-              children: [
-                Text(
-                    "${match.userChallenger.name} vs ${match.userChallenging.name}"),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text("Creado : ${match.createdAt.toString()}"),
-                    Text(
-                        "${match.userChanllengerPoints} - ${match.userChanllengingPoints}")
-                  ],
-                )
-              ],
-            ),
+      elevation: 8,
+      color: Colors.transparent,
+      child: Container(
+        decoration: BoxDecoration(
+            color: Theme.of(context).appBarTheme.backgroundColor,
+            borderRadius: BorderRadius.circular(10)),
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            children: [
+              Text(
+                  "${match.userChallenger.name} vs ${match.userChallenging.name}"),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Creado ",
+                        style: Theme.of(context).textTheme.caption,
+                      ),
+                      Text(timeago.format(match.createdAt, locale: 'es'))
+                    ],
+                  ),
+                  Text("? - ?")
+                ],
+              )
+            ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

@@ -7,8 +7,8 @@ final List<Rival> rivals = List.generate(
     13,
     (index) => Rival(
         id: index,
-        name: "name",
-        lastname: "apellido",
+        name: "name " + index.toString(),
+        lastname: "apellido " + index.toString(),
         victories: 0,
         losses: 0,
         image: ''));

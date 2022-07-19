@@ -1,4 +1,3 @@
-import 'package:app_burger/domain/model/product.dart';
 import 'package:app_burger/domain/model/rival.dart';
 import 'package:app_burger/presentation/pages/home/home_controller.dart';
 import 'package:app_burger/presentation/theme.dart';
@@ -10,8 +9,8 @@ final List<Rival> rivals = List.generate(
     13,
     (index) => Rival(
         id: index,
-        name: "name",
-        lastname: "apellido",
+        name: "name " + index.toString(),
+        lastname: "apellido " + index.toString(),
         victories: 0,
         losses: 0,
         image: ''));
@@ -76,7 +75,7 @@ class RivalsScreen extends GetWidget<HomeController> {
   }
 }
 
-class _ItemProduct extends StatelessWidget {
+class _ItemProduct extends GetWidget<HomeController> {
   final Rival rival;
   const _ItemProduct({Key? key, required this.rival}) : super(key: key);
 
@@ -116,7 +115,10 @@ class _ItemProduct extends StatelessWidget {
               ],
             )),
             DeliveryButton(
-              onTap: () => {},
+              onTap: () {
+                controller.setSelectUserRival(rival);
+                controller.setIndex(2);
+              },
               textStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
                   color: DeliveryColors.white,
                   fontSize: 15,

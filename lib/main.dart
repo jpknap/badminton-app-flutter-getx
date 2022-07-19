@@ -3,6 +3,7 @@ import 'package:app_burger/presentation/routes/delivery_routes.dart';
 import 'package:app_burger/presentation/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 void main() {
   runApp(const MyApp());

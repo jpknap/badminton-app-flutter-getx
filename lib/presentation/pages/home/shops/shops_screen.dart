@@ -2,6 +2,7 @@ import 'package:app_burger/domain/model/match.dart';
 import 'package:app_burger/domain/model/user.dart';
 import 'package:app_burger/presentation/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 final List<BadmintonMatch> badmintonMatches = List.generate(
     13,
@@ -88,9 +89,17 @@ class RowMatchResume extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("Creado : ${match.createdAt.toString()}"),
-                  Text(
-                      "${match.userChanllengerPoints} - ${match.userChanllengingPoints}")
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Creado ",
+                        style: Theme.of(context).textTheme.caption,
+                      ),
+                      Text(timeago.format(match.createdAt, locale: 'es'))
+                    ],
+                  ),
+                  Text("? - ?")
                 ],
               )
             ],
