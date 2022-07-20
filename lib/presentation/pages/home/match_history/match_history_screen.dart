@@ -1,26 +1,12 @@
 import 'package:app_burger/domain/model/badminton_match.dart';
 import 'package:app_burger/domain/model/user.dart';
-import 'package:app_burger/presentation/routes/delivery_routes.dart';
-import 'package:app_burger/presentation/theme.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:app_burger/presentation/pages/home/home_controller.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:timeago/timeago.dart' as timeago;
+import 'package:flutter/material.dart';
 
-final List<BadmintonMatch> badmintonMatches = List.generate(
-    13,
-    (index) => BadmintonMatch(
-        id: index,
-        userChallenger:
-            User(name: 'name', username: 'username', image: 'image'),
-        userChallenging:
-            User(name: 'name', username: 'username', image: 'image'),
-        createdAt: DateTime.now(),
-        finishedAt: null,
-        userChanllengerPoints: 20,
-        userChanllengingPoints: 22));
-
-class MatchsPendingScreen extends StatelessWidget {
-  const MatchsPendingScreen({Key? key}) : super(key: key);
+class MatchHistoryScreen extends GetWidget<HomeController> {
+  const MatchHistoryScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +15,7 @@ class MatchsPendingScreen extends StatelessWidget {
       Container(
         child: Center(
             child: Text(
-          "Desafios",
+          "Historial",
           style: Theme.of(context).textTheme.titleLarge?.copyWith(
                 fontWeight: FontWeight.bold,
               ),
@@ -47,26 +33,31 @@ class MatchsPendingScreen extends StatelessWidget {
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-            GridView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                padding: const EdgeInsets.all(15.0),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 1,
-                    childAspectRatio: 4,
-                    crossAxisSpacing: 4,
-                    mainAxisSpacing: 4),
-                itemCount: badmintonMatches.length,
-                shrinkWrap: true,
-                itemBuilder: (BuildContext ctx, index) {
-                  return InkWell(
-                    onLongPress: () {
-                      Get.toNamed(DeliveryRoutes.resultMatch);
-                    },
-                    child: RowMatchResume(
-                      match: badmintonMatches[index],
-                    ),
-                  );
-                })
+            SizedBox(
+              height: 5,
+            ),
+            Obx(
+              () {
+                List<BadmintonMatch> badmintonMatches =
+                    controller.matchHisotry.value;
+                return GridView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    padding: const EdgeInsets.all(15.0),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 1,
+                            childAspectRatio: 4,
+                            crossAxisSpacing: 4,
+                            mainAxisSpacing: 4),
+                    itemCount: badmintonMatches.length,
+                    shrinkWrap: true,
+                    itemBuilder: (BuildContext ctx, index) {
+                      return RowMatchResume(
+                        match: badmintonMatches[index],
+                      );
+                    });
+              },
+            )
           ])))
     ]));
   }
@@ -106,7 +97,7 @@ class RowMatchResume extends StatelessWidget {
                       Text(timeago.format(match.createdAt, locale: 'es'))
                     ],
                   ),
-                  Text("? - ?")
+                  Text("20 - 22")
                 ],
               )
             ],

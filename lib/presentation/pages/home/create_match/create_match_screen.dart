@@ -12,15 +12,13 @@ class CreateMatchScreen extends GetWidget<HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-      Container(
-        child: Center(
-            child: Text(
-          "Crear Duelo",
-          style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
-        )),
-      ),
+      Center(
+          child: Text(
+        "Crear Duelo",
+        style: Theme.of(context).textTheme.titleLarge?.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+      )),
       Divider(
         height: 30,
         thickness: 2,
@@ -43,7 +41,7 @@ class CreateMatchScreen extends GetWidget<HomeController> {
                       ?.copyWith(fontWeight: FontWeight.bold),
                   textAlign: TextAlign.start,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 InkWell(
@@ -110,7 +108,9 @@ class CreateMatchScreen extends GetWidget<HomeController> {
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(DeliveryColors.purple),
             ),
-            onPressed: () {},
+            onPressed: () {
+              controller.saveDuel();
+            },
             child: const Text('Crear duelo'),
           ),
         ),

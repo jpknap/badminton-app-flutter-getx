@@ -2,7 +2,7 @@ import 'package:app_burger/presentation/pages/home/create_match/select_user_scre
 import 'package:app_burger/presentation/pages/home/home_bindings.dart';
 import 'package:app_burger/presentation/pages/home/home_screen.dart';
 import 'package:app_burger/presentation/pages/home/profile/profile_binding.dart';
-import 'package:app_burger/presentation/pages/home/shops/result_match_screen.dart';
+import 'package:app_burger/presentation/pages/home/match_pending/result_match_screen.dart';
 import 'package:app_burger/presentation/pages/login/login_binding.dart';
 import 'package:app_burger/presentation/pages/login/login_screen.dart';
 import 'package:app_burger/presentation/pages/splash/splash_binding.dart';

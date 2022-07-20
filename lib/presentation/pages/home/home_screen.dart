@@ -1,9 +1,9 @@
-import 'package:app_burger/presentation/pages/home/favourites/favourites_screen.dart';
+import 'package:app_burger/presentation/pages/home/match_history/match_history_screen.dart';
 import 'package:app_burger/presentation/pages/home/home_controller.dart';
 import 'package:app_burger/presentation/pages/home/products/products_screen.dart';
 import 'package:app_burger/presentation/pages/home/profile/profile_screen.dart';
 import 'package:app_burger/presentation/pages/home/rivals/rivals_screen.dart';
-import 'package:app_burger/presentation/pages/home/shops/shops_screen.dart';
+import 'package:app_burger/presentation/pages/home/match_pending/match_pending_screen.dart';
 import 'package:app_burger/presentation/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';

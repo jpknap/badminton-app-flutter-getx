@@ -2,7 +2,10 @@ import 'package:app_burger/domain/model/badminton_match.dart';
 import 'package:app_burger/domain/model/rival.dart';
 import 'package:app_burger/domain/model/user.dart';
 import 'package:app_burger/domain/request/login_request.dart';
+import 'package:app_burger/domain/request/save_result_match_request.dart';
 import 'package:app_burger/domain/response/login_response.dart';
+
+import '../request/create_duel_request.dart';
 
 abstract class ApiRepositoryInterface {
   Future<User> getUserFromToken(String token);
@@ -11,5 +14,6 @@ abstract class ApiRepositoryInterface {
   Future<List<Rival>> getRivals();
   Future<List<BadmintonMatch>> getPendingMatch();
   Future<List<BadmintonMatch>> getHistoryMatch();
-  Future<void> createMatch();
+  Future<void> createMatch(CreateDuelRequest createDuelRequest);
+  Future<void> saveResultMatch(SaveResultMatchRequest saveResultMatchRequest);
 }

@@ -66,13 +66,14 @@ class ResultMatchScreen extends GetWidget<HomeController> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
-                              const SizedBox(
+                              SizedBox(
                                 width: 80,
                                 child: Flexible(
                                   child: TextField(
+                                    controller: controller.challendPoints,
                                     textAlignVertical: TextAlignVertical.center,
                                     textAlign: TextAlign.center,
-                                    decoration: InputDecoration(
+                                    decoration: const InputDecoration(
                                       border: OutlineInputBorder(),
                                       hintStyle: TextStyle(),
                                       hintText: '?',
@@ -89,6 +90,7 @@ class ResultMatchScreen extends GetWidget<HomeController> {
                                 width: 80,
                                 child: Flexible(
                                   child: TextField(
+                                    controller: controller.challingPoints,
                                     textAlignVertical: TextAlignVertical.center,
                                     textAlign: TextAlign.center,
                                     decoration: InputDecoration(
@@ -120,7 +122,9 @@ class ResultMatchScreen extends GetWidget<HomeController> {
                             backgroundColor: MaterialStateProperty.all(
                                 DeliveryColors.purple),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            controller.saveResultMatch();
+                          },
                           child: const Text('Guardar resultado'),
                         ),
                       ),

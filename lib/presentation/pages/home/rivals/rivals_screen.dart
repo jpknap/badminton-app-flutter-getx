@@ -5,16 +5,6 @@ import 'package:app_burger/presentation/widgets/delivery_button/delivery_buttom.
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 
-final List<Rival> rivals = List.generate(
-    13,
-    (index) => Rival(
-        id: index,
-        name: "name " + index.toString(),
-        lastname: "apellido " + index.toString(),
-        victories: 0,
-        losses: 0,
-        image: ''));
-
 class RivalsScreen extends GetWidget<HomeController> {
   const RivalsScreen({super.key});
 
@@ -49,22 +39,25 @@ class RivalsScreen extends GetWidget<HomeController> {
                     "",
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
-                  GridView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      padding: const EdgeInsets.all(15.0),
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              childAspectRatio: 0.60,
-                              crossAxisSpacing: 4,
-                              mainAxisSpacing: 4),
-                      itemCount: rivals.length,
-                      shrinkWrap: true,
-                      itemBuilder: (BuildContext ctx, index) {
-                        return _ItemProduct(
-                          rival: rivals[index],
-                        );
-                      })
+                  Obx(() {
+                    final rivals = controller.rivals.value;
+                    return GridView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        padding: const EdgeInsets.all(15.0),
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                childAspectRatio: 0.60,
+                                crossAxisSpacing: 4,
+                                mainAxisSpacing: 4),
+                        itemCount: rivals.length,
+                        shrinkWrap: true,
+                        itemBuilder: (BuildContext ctx, index) {
+                          return _ItemProduct(
+                            rival: rivals[index],
+                          );
+                        });
+                  })
                 ],
               ),
             ),
