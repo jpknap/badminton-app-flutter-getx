@@ -92,69 +92,78 @@ class ProfileScreen extends GetWidget<ProfileController> {
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 8.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color:
-                                  Theme.of(context).appBarTheme.backgroundColor,
-                              borderRadius: BorderRadius.circular(25)),
-                          child: Padding(
-                            padding: const EdgeInsets.all(15.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: [
-                                Expanded(
-                                    child: Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.stretch,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Center(
-                                      child: Text(
-                                        user.name,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleMedium,
-                                      ),
-                                    ),
-                                    SizedBox(height: 15),
-                                    Text(
-                                      "E-mail",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleSmall,
-                                    ),
-                                    SizedBox(height: 10),
-                                    Text(
-                                      "youremail@host.com",
-                                      style:
-                                          Theme.of(context).textTheme.bodyLarge,
-                                    ),
-                                    SizedBox(height: 30),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          "Dark mode",
+                        child: Card(
+                          color: Colors.transparent,
+                          elevation: 8,
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: Theme.of(context)
+                                    .appBarTheme
+                                    .backgroundColor,
+                                borderRadius: BorderRadius.circular(10)),
+                            child: Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: [
+                                  Expanded(
+                                      child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.stretch,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Center(
+                                        child: Text(
+                                          user.name,
                                           style: Theme.of(context)
                                               .textTheme
-                                              .titleSmall!
-                                              .copyWith(
-                                                  fontWeight: FontWeight.bold),
+                                              .titleMedium,
                                         ),
-                                        Switch(
-                                            activeColor: DeliveryColors.purple,
-                                            activeTrackColor:
-                                                DeliveryColors.ligthGrey,
-                                            value: controller.isDarkMode.value,
-                                            onChanged: (bool value) {
-                                              controller.changeSwitch(value);
-                                            }),
-                                      ],
-                                    )
-                                  ],
-                                )),
-                              ],
+                                      ),
+                                      SizedBox(height: 15),
+                                      Text(
+                                        "E-mail",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall,
+                                      ),
+                                      SizedBox(height: 10),
+                                      Text(
+                                        "youremail@host.com",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyLarge,
+                                      ),
+                                      SizedBox(height: 15),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            "Dark mode",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleSmall!
+                                                .copyWith(
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                          ),
+                                          Switch(
+                                              activeColor:
+                                                  DeliveryColors.purple,
+                                              activeTrackColor:
+                                                  DeliveryColors.ligthGrey,
+                                              value:
+                                                  controller.isDarkMode.value,
+                                              onChanged: (bool value) {
+                                                controller.changeSwitch(value);
+                                              }),
+                                        ],
+                                      )
+                                    ],
+                                  )),
+                                ],
+                              ),
                             ),
                           ),
                         ),

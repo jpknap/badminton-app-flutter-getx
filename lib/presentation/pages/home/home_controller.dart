@@ -21,6 +21,7 @@ class HomeController extends GetxController {
   Rx<List<Rival>> rivals = Rx<List<Rival>>([]);
   Rx<List<BadmintonMatch>> matchHisotry = Rx<List<BadmintonMatch>>([]);
   Rx<List<BadmintonMatch>> matchPending = Rx<List<BadmintonMatch>>([]);
+  RxBool loading = RxBool(false);
 
   BadmintonMatch? badmintonMatchSelected = null;
   final challendPoints = TextEditingController();
@@ -98,18 +99,24 @@ class HomeController extends GetxController {
   void saveDuel() async {
     User user = await localRepository.getUser();
     Rival? rival = rivalCreateForm.value;
-    if (rival is Rival) {
+    if (rival is Rival && !loading.value) {
+      loading.value = true;
       CreateDuelRequest createDuelRequest =
           CreateDuelRequest(user: user, rival: rival);
       await apiRepository.createMatch(createDuelRequest);
+      loading.value = false;
+      rivalCreateForm.value = null;
     } else {
+      Get.snackbar("Error Formulario", "Debes seleccionar un rival.");
+
       NullThrownError();
     }
   }
 
   void saveResultMatch() async {
     BadmintonMatch? badmintonMatch = badmintonMatchSelected;
-    if (badmintonMatch is BadmintonMatch) {
+    if (badmintonMatch is BadmintonMatch && !loading.value) {
+      loading.value = true;
       final int _challendPoints = int.parse(challingPoints.text);
       final int _challingPoints = int.parse(challingPoints.text);
       await apiRepository.saveResultMatch(SaveResultMatchRequest(
@@ -121,7 +128,10 @@ class HomeController extends GetxController {
               finishedAt: DateTime.now(),
               userChanllengerPoints: _challendPoints,
               userChanllengingPoints: _challingPoints)));
+      loading.value = false;
     } else {
+      Get.snackbar("Error Formulario", "Debes seleccionar un duelo.");
+      badmintonMatch = null;
       NullThrownError();
     }
   }

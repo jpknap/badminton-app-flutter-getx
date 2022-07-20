@@ -18,31 +18,43 @@ class HomeScreen extends GetWidget<HomeController> {
   Widget build(BuildContext context) {
     return Container(
       color: Theme.of(context).scaffoldBackgroundColor,
-      child: SafeArea(
-        child: Scaffold(
-          body: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Expanded(child: Obx(() {
-                return IndexedStack(
-                    index: controller.indexHome.value,
-                    children: [
-                      RivalsScreen(),
-                      MatchsPendingScreen(),
-                      CreateMatchScreen(),
-                      MatchHistoryScreen(),
-                      ProfileScreen(),
-                    ]);
-              })),
-              Obx(() {
-                return _DeliveryNavigationBar(
-                    index: controller.indexHome.value,
-                    onIndexSelected: (index) => {controller.setIndex(index)});
-              })
-            ],
+      child: Stack(children: [
+        SafeArea(
+          child: Scaffold(
+            body: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Expanded(child: Obx(() {
+                  return IndexedStack(
+                      index: controller.indexHome.value,
+                      children: [
+                        RivalsScreen(),
+                        MatchsPendingScreen(),
+                        CreateMatchScreen(),
+                        MatchHistoryScreen(),
+                        ProfileScreen(),
+                      ]);
+                })),
+                Obx(() {
+                  return _DeliveryNavigationBar(
+                      index: controller.indexHome.value,
+                      onIndexSelected: (index) => {controller.setIndex(index)});
+                })
+              ],
+            ),
           ),
         ),
-      ),
+        Positioned.fill(child: Obx(() {
+          if (controller.loading.value) {
+            return Container(
+              color: DeliveryColors.grey.withAlpha(150),
+              child: const Center(child: CircularProgressIndicator()),
+            );
+          } else {
+            return const SizedBox.shrink();
+          }
+        }))
+      ]),
     );
   }
 }
