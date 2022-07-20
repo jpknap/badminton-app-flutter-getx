@@ -4,7 +4,6 @@ import 'package:app_burger/domain/repository/local_repository_interface.dart';
 import 'package:app_burger/domain/request/login_request.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 
 enum LoginState { loading, initial }
 

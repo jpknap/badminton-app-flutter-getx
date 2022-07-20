@@ -2,6 +2,7 @@ import 'package:app_burger/domain/model/product.dart';
 import 'package:app_burger/domain/model/rival.dart';
 import 'package:app_burger/domain/repository/api_repository_interface.dart';
 import 'package:app_burger/domain/repository/local_repository_interface.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
@@ -13,6 +14,7 @@ class HomeController extends GetxController {
   RxInt indexHome = 0.obs;
   Rx<List<Product>> car = Rx<List<Product>>([]);
   Rx<Rival?> rivalCreateForm = Rx<Rival?>(null);
+  final challendPoints = TextEditingController();
 
   @override
   void onReady() {

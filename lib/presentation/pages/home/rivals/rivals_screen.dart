@@ -46,7 +46,7 @@ class RivalsScreen extends GetWidget<HomeController> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Text(
-                    "Jugadores",
+                    "",
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                   GridView.builder(

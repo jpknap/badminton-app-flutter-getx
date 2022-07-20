@@ -1,6 +1,6 @@
 import 'package:app_burger/domain/exception/auth_exception.dart';
 import 'package:app_burger/domain/model/rival.dart';
-import 'package:app_burger/domain/model/match.dart';
+import 'package:app_burger/domain/model/badminton_match.dart';
 import 'package:app_burger/domain/model/user.dart';
 import 'package:app_burger/domain/repository/api_repository_interface.dart';
 import 'package:app_burger/domain/response/login_response.dart';

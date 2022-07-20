@@ -1,4 +1,4 @@
-import 'package:app_burger/domain/model/match.dart';
+import 'package:app_burger/domain/model/badminton_match.dart';
 import 'package:app_burger/domain/model/rival.dart';
 import 'package:app_burger/domain/model/user.dart';
 import 'package:app_burger/domain/request/login_request.dart';

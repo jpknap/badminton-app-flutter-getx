@@ -1,7 +1,9 @@
-import 'package:app_burger/domain/model/match.dart';
+import 'package:app_burger/domain/model/badminton_match.dart';
 import 'package:app_burger/domain/model/user.dart';
+import 'package:app_burger/presentation/routes/delivery_routes.dart';
 import 'package:app_burger/presentation/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 final List<BadmintonMatch> badmintonMatches = List.generate(
@@ -56,8 +58,13 @@ class MatchsPendingScreen extends StatelessWidget {
                 itemCount: badmintonMatches.length,
                 shrinkWrap: true,
                 itemBuilder: (BuildContext ctx, index) {
-                  return RowMatchResume(
-                    match: badmintonMatches[index],
+                  return InkWell(
+                    onLongPress: () {
+                      Get.toNamed(DeliveryRoutes.resultMatch);
+                    },
+                    child: RowMatchResume(
+                      match: badmintonMatches[index],
+                    ),
                   );
                 })
           ])))

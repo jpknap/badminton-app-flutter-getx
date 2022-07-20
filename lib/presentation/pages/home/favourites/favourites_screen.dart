@@ -1,4 +1,4 @@
-import 'package:app_burger/domain/model/match.dart';
+import 'package:app_burger/domain/model/badminton_match.dart';
 import 'package:app_burger/domain/model/user.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:flutter/material.dart';
@@ -26,7 +26,7 @@ class MatchHistoryScreen extends StatelessWidget {
       Container(
         child: Center(
             child: Text(
-          "Desafios",
+          "Historial",
           style: Theme.of(context).textTheme.titleLarge?.copyWith(
                 fontWeight: FontWeight.bold,
               ),
@@ -98,7 +98,7 @@ class RowMatchResume extends StatelessWidget {
                       Text(timeago.format(match.createdAt, locale: 'es'))
                     ],
                   ),
-                  Text("? - ?")
+                  Text("20 - 22")
                 ],
               )
             ],
