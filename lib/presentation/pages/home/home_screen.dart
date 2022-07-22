@@ -1,6 +1,5 @@
 import 'package:app_burger/presentation/pages/home/match_history/match_history_screen.dart';
 import 'package:app_burger/presentation/pages/home/home_controller.dart';
-import 'package:app_burger/presentation/pages/home/products/products_screen.dart';
 import 'package:app_burger/presentation/pages/home/profile/profile_screen.dart';
 import 'package:app_burger/presentation/pages/home/rivals/rivals_screen.dart';
 import 'package:app_burger/presentation/pages/home/match_pending/match_pending_screen.dart';
@@ -8,7 +7,6 @@ import 'package:app_burger/presentation/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 
-import 'cart/cart_screen.dart';
 import 'create_match/create_match_screen.dart';
 
 class HomeScreen extends GetWidget<HomeController> {
@@ -27,7 +25,7 @@ class HomeScreen extends GetWidget<HomeController> {
                 Expanded(child: Obx(() {
                   return IndexedStack(
                       index: controller.indexHome.value,
-                      children: [
+                      children: const [
                         RivalsScreen(),
                         MatchsPendingScreen(),
                         CreateMatchScreen(),

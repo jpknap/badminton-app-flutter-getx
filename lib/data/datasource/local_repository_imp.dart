@@ -7,6 +7,7 @@ const _prefUsername = 'USERNAME';
 const _prefName = 'NAME';
 const _prefImage = 'IMAGE';
 const _prefDarkMode = 'DARKMODE';
+const _prefId = 'USERID';
 
 class LocalResponsitoryImp implements LocalRepositoryInterface {
   late SharedPreferences _sharedPreferences;
@@ -43,9 +44,10 @@ class LocalResponsitoryImp implements LocalRepositoryInterface {
     await setSharedPreferences();
 
     final String name = _sharedPreferences.getString(_prefName) ?? '';
+    final int id = _sharedPreferences.getInt(_prefId) ?? 0;
     final String username = _sharedPreferences.getString(_prefUsername) ?? '';
     final String image = _sharedPreferences.getString(_prefImage) ?? '';
-    User user = User(name: name, username: username, image: image);
+    User user = User(id: id, name: name, username: username, image: image);
     return user;
   }
 
@@ -54,6 +56,7 @@ class LocalResponsitoryImp implements LocalRepositoryInterface {
     await setSharedPreferences();
 
     await _sharedPreferences.setString(_prefName, user.name);
+    await _sharedPreferences.setInt(_prefId, user.id);
     await _sharedPreferences.setString(_prefUsername, user.username);
     await _sharedPreferences.setString(_prefImage, user.image);
   }

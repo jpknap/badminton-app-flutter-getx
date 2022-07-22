@@ -97,7 +97,9 @@ class RowMatchResume extends StatelessWidget {
                       Text(timeago.format(match.createdAt, locale: 'es'))
                     ],
                   ),
-                  Text("20 - 22")
+                  Text(match.userChanllengingPoints.toString() +
+                      "-" +
+                      match.userChanllengerPoints.toString())
                 ],
               )
             ],

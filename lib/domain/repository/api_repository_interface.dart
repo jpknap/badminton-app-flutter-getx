@@ -12,8 +12,8 @@ abstract class ApiRepositoryInterface {
   Future<LoginResponse> login(LoginRequest loginRequest);
   Future<void> logout(String token);
   Future<List<Rival>> getRivals();
-  Future<List<BadmintonMatch>> getPendingMatch();
-  Future<List<BadmintonMatch>> getHistoryMatch();
+  Future<List<BadmintonMatch>> getPendingMatch(String token);
+  Future<List<BadmintonMatch>> getHistoryMatch(String token);
   Future<void> createMatch(CreateDuelRequest createDuelRequest);
   Future<void> saveResultMatch(SaveResultMatchRequest saveResultMatchRequest);
 }

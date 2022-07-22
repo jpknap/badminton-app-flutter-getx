@@ -129,12 +129,11 @@ class ProfileScreen extends GetWidget<ProfileController> {
                                       ),
                                       SizedBox(height: 10),
                                       Text(
-                                        "youremail@host.com",
+                                        user.username,
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodyLarge,
                                       ),
-                                      SizedBox(height: 15),
                                       Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,

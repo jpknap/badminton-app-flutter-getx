@@ -1,6 +1,8 @@
 import 'package:app_burger/domain/model/user.dart';
 import 'package:app_burger/domain/repository/api_repository_interface.dart';
 import 'package:app_burger/domain/repository/local_repository_interface.dart';
+import 'package:app_burger/domain/exception/auth_exception.dart';
+
 import 'package:app_burger/presentation/routes/delivery_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -30,9 +32,14 @@ class SplashController extends GetxController {
     if (token.isEmpty) {
       Get.offNamed(DeliveryRoutes.login);
     } else {
-      final User user = await apiRepository.getUserFromToken(token);
-      localRepository.saveUser(user);
-      Get.offNamed(DeliveryRoutes.home);
+      try {
+        final User user = await apiRepository.getUserFromToken(token);
+        localRepository.saveUser(user);
+        Get.offNamed(DeliveryRoutes.home);
+      } on AuthException catch (e) {
+        localRepository.clearAllData();
+        Get.offNamed(DeliveryRoutes.login);
+      }
     }
   }
 }

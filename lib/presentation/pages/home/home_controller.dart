@@ -87,12 +87,14 @@ class HomeController extends GetxController {
   }
 
   void getMatchHistory() async {
-    matchHisotry.value = await apiRepository.getHistoryMatch();
+    String token = await localRepository.getToken();
+    matchHisotry.value = await apiRepository.getHistoryMatch(token);
     rivals.refresh();
   }
 
   void getMatchPending() async {
-    matchPending.value = await apiRepository.getPendingMatch();
+    String token = await localRepository.getToken();
+    matchPending.value = await apiRepository.getPendingMatch(token);
     rivals.refresh();
   }
 
@@ -104,8 +106,11 @@ class HomeController extends GetxController {
       CreateDuelRequest createDuelRequest =
           CreateDuelRequest(user: user, rival: rival);
       await apiRepository.createMatch(createDuelRequest);
+      getMatchPending();
+      await Future.delayed(Duration(milliseconds: 300));
       loading.value = false;
       rivalCreateForm.value = null;
+      indexHome.value = 1;
     } else {
       Get.snackbar("Error Formulario", "Debes seleccionar un rival.");
 
@@ -117,7 +122,7 @@ class HomeController extends GetxController {
     BadmintonMatch? badmintonMatch = badmintonMatchSelected;
     if (badmintonMatch is BadmintonMatch && !loading.value) {
       loading.value = true;
-      final int _challendPoints = int.parse(challingPoints.text);
+      final int _challendPoints = int.parse(challendPoints.text);
       final int _challingPoints = int.parse(challingPoints.text);
       await apiRepository.saveResultMatch(SaveResultMatchRequest(
           badmintonMatch: BadmintonMatch(
@@ -128,7 +133,11 @@ class HomeController extends GetxController {
               finishedAt: DateTime.now(),
               userChanllengerPoints: _challendPoints,
               userChanllengingPoints: _challingPoints)));
+      getMatchHistory();
+      getMatchPending();
+      await Future.delayed(Duration(milliseconds: 700));
       loading.value = false;
+      Get.back();
     } else {
       Get.snackbar("Error Formulario", "Debes seleccionar un duelo.");
       badmintonMatch = null;
