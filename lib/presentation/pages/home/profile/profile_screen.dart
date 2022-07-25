@@ -51,7 +51,7 @@ class ProfileScreen extends GetWidget<ProfileController> {
                                     child: const Padding(
                                       padding: EdgeInsets.all(3),
                                       child: CircleAvatar(
-                                        radius: 50,
+                                        radius: 40,
                                         backgroundImage: NetworkImage(
                                             'https://picsum.photos/200/300.jpg'),
                                       ),
@@ -120,14 +120,14 @@ class ProfileScreen extends GetWidget<ProfileController> {
                                               .titleMedium,
                                         ),
                                       ),
-                                      SizedBox(height: 15),
+                                      SizedBox(height: 5),
                                       Text(
                                         "E-mail",
                                         style: Theme.of(context)
                                             .textTheme
                                             .titleSmall,
                                       ),
-                                      SizedBox(height: 10),
+                                      SizedBox(height: 5),
                                       Text(
                                         user.username,
                                         style: Theme.of(context)
@@ -172,7 +172,7 @@ class ProfileScreen extends GetWidget<ProfileController> {
                       flex: 1,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 100, vertical: 90),
+                            horizontal: 100, vertical: 70),
                         child: ElevatedButton(
                           style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all(
