@@ -3,9 +3,9 @@ import 'package:app_burger/presentation/pages/home/home_controller.dart';
 import 'package:app_burger/presentation/theme.dart';
 import 'package:app_burger/presentation/widgets/delivery_button/delivery_buttom.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:get/get.dart';
 
-class Player extends GetWidget<HomeController> {
+class Player extends StatelessWidget {
   final Rival rival;
   const Player({Key? key, required this.rival}) : super(key: key);
   @override
@@ -45,6 +45,7 @@ class Player extends GetWidget<HomeController> {
             )),
             DeliveryButton(
               onTap: () {
+                final controller = Get.find<HomeController>();
                 controller.setSelectUserRival(rival);
                 controller.setIndex(2);
               },

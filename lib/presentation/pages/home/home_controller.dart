@@ -83,7 +83,6 @@ class HomeController extends GetxController {
 
   void getRivals() async {
     rivals.value = await apiRepository.getRivals();
-    print(rivals.value.first.victories);
     rivals.refresh();
   }
 
