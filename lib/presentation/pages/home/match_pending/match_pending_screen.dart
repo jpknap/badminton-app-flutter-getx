@@ -28,41 +28,42 @@ class MatchsPendingScreen extends GetWidget<HomeController> {
         endIndent: 160,
         color: Theme.of(context).textTheme.titleLarge?.color,
       ),
-      Expanded(
-          child: SingleChildScrollView(
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-            SizedBox(
-              height: 5,
-            ),
-            Obx(() {
-              List<BadmintonMatch> badmintonMatches =
-                  controller.matchPending.value;
-              return GridView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  padding: const EdgeInsets.all(15.0),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 1,
-                      childAspectRatio: 4,
-                      crossAxisSpacing: 4,
-                      mainAxisSpacing: 4),
-                  itemCount: badmintonMatches.length,
-                  shrinkWrap: true,
-                  itemBuilder: (BuildContext ctx, index) {
-                    return InkWell(
-                      onLongPress: () {
-                        controller.badmintonMatchSelected =
-                            badmintonMatches[index];
-                        Get.toNamed(DeliveryRoutes.resultMatch);
-                      },
-                      child: RowMatchResume(
-                        match: badmintonMatches[index],
-                      ),
-                    );
-                  });
-            })
-          ])))
+      SingleChildScrollView(
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+        SizedBox(
+          height: 5,
+        ),
+        Obx(() {
+          List<BadmintonMatch> badmintonMatches = controller.matchPending.value;
+          if (badmintonMatches.length > 0) {
+            return GridView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                padding: const EdgeInsets.all(15.0),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 1,
+                    childAspectRatio: 4,
+                    crossAxisSpacing: 4,
+                    mainAxisSpacing: 4),
+                itemCount: badmintonMatches.length,
+                shrinkWrap: true,
+                itemBuilder: (BuildContext ctx, index) {
+                  return InkWell(
+                    onLongPress: () {
+                      controller.badmintonMatchSelected =
+                          badmintonMatches[index];
+                      Get.toNamed(DeliveryRoutes.resultMatch);
+                    },
+                    child: RowMatchResume(
+                      match: badmintonMatches[index],
+                    ),
+                  );
+                });
+          } else {
+            return Text(" ");
+          }
+        })
+      ]))
     ]));
   }
 }
@@ -87,7 +88,7 @@ class RowMatchResume extends StatelessWidget {
           child: Column(
             children: [
               Text(
-                  "${match.userChallenger.name} vs ${match.userChallenging.name}"),
+                  "${match.userChallenging.name} vs ${match.userChallenger.name}"),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -101,7 +102,7 @@ class RowMatchResume extends StatelessWidget {
                       Text(timeago.format(match.createdAt, locale: 'es'))
                     ],
                   ),
-                  Text("? - ?")
+                  const Text("? - ?")
                 ],
               )
             ],

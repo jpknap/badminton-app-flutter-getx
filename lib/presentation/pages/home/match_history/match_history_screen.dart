@@ -40,22 +40,26 @@ class MatchHistoryScreen extends GetWidget<HomeController> {
               () {
                 List<BadmintonMatch> badmintonMatches =
                     controller.matchHisotry.value;
-                return GridView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    padding: const EdgeInsets.all(15.0),
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 1,
-                            childAspectRatio: 4,
-                            crossAxisSpacing: 4,
-                            mainAxisSpacing: 4),
-                    itemCount: badmintonMatches.length,
-                    shrinkWrap: true,
-                    itemBuilder: (BuildContext ctx, index) {
-                      return RowMatchResume(
-                        match: badmintonMatches[index],
-                      );
-                    });
+                if (badmintonMatches.length > 0) {
+                  return GridView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      padding: const EdgeInsets.all(15.0),
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 1,
+                              childAspectRatio: 4,
+                              crossAxisSpacing: 4,
+                              mainAxisSpacing: 4),
+                      itemCount: badmintonMatches.length,
+                      shrinkWrap: true,
+                      itemBuilder: (BuildContext ctx, index) {
+                        return RowMatchResume(
+                          match: badmintonMatches[index],
+                        );
+                      });
+                } else {
+                  return Text(" ");
+                }
               },
             )
           ])))
@@ -83,7 +87,7 @@ class RowMatchResume extends StatelessWidget {
           child: Column(
             children: [
               Text(
-                  "${match.userChallenger.name} vs ${match.userChallenging.name}"),
+                  "${match.userChallenging.name} vs ${match.userChallenger.name}"),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

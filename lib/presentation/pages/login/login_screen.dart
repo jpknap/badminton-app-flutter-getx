@@ -64,8 +64,7 @@ class LoginScreen extends GetWidget<LoginController> {
                   radius: 50,
                   child: Padding(
                     padding: const EdgeInsets.all(12.0),
-                    child: Image.network(
-                        'https://cdn-icons-png.flaticon.com/512/732/732090.png'),
+                    child: Image.asset('assets/images/volante.png'),
                   ),
                 )),
           ]),
@@ -85,7 +84,7 @@ class LoginScreen extends GetWidget<LoginController> {
                   height: 15,
                 ),
                 Text(
-                  'Login',
+                  'Badminton App',
                   style: Theme.of(context)
                       .textTheme
                       .headline6
@@ -96,19 +95,22 @@ class LoginScreen extends GetWidget<LoginController> {
                   height: 40,
                 ),
                 Text(
-                  'Username',
+                  'E-mail',
                   style: Theme.of(context)
                       .textTheme
                       .caption
                       ?.copyWith(fontWeight: FontWeight.bold),
                   textAlign: TextAlign.start,
                 ),
-                TextField(
-                  controller: controller.usernameTextController,
-                  decoration: const InputDecoration(
-                      hintText: 'Username',
-                      prefixIcon: Icon(Icons.person_outline)),
-                ),
+                Obx(() {
+                  return TextField(
+                    controller: controller.emailTextController,
+                    decoration: InputDecoration(
+                        hintText: 'user@host.com',
+                        errorText: controller.errorEmail.value,
+                        prefixIcon: Icon(Icons.person_outline)),
+                  );
+                }),
                 const SizedBox(
                   height: 30,
                 ),
@@ -120,13 +122,16 @@ class LoginScreen extends GetWidget<LoginController> {
                       ?.copyWith(fontWeight: FontWeight.bold),
                   textAlign: TextAlign.start,
                 ),
-                TextField(
-                  controller: controller.passwordTextControlller,
-                  obscureText: true,
-                  decoration: InputDecoration(
-                      hintText: 'Password',
-                      prefixIcon: Icon(Icons.lock_outline)),
-                ),
+                Obx(() {
+                  return TextField(
+                    controller: controller.passwordTextControlller,
+                    obscureText: true,
+                    decoration: InputDecoration(
+                        hintText: 'Password',
+                        errorText: controller.errorPassword.value,
+                        prefixIcon: Icon(Icons.lock_outline)),
+                  );
+                })
               ],
             ),
           ),
@@ -135,14 +140,17 @@ class LoginScreen extends GetWidget<LoginController> {
 
   Widget getFooter(BuildContext context) {
     return SafeArea(
-        child: DeliveryButton(
-      text: "Login",
-      textStyle: Theme.of(context)
-          .textTheme
-          .headline6!
-          .copyWith(color: DeliveryColors.white),
+        child: Padding(
       padding: const EdgeInsets.all(8.0),
-      onTap: () => {login()},
+      child: DeliveryButton(
+        text: "Login",
+        textStyle: Theme.of(context)
+            .textTheme
+            .titleMedium!
+            .copyWith(color: DeliveryColors.white),
+        padding: const EdgeInsets.all(8.0),
+        onTap: () => {login()},
+      ),
     ));
   }
 }

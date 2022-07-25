@@ -23,10 +23,13 @@ class SplashScreen extends GetWidget<SplashController> {
                 backgroundColor: DeliveryColors.white,
                 radius: 50,
                 child: Padding(
-                  padding: EdgeInsets.all(12.0),
-                  child: Image.network(
-                      'https://cdn-icons-png.flaticon.com/512/732/732090.png'),
-                ),
+                    padding: EdgeInsets.all(12.0),
+                    child: Obx(() {
+                      return Transform.rotate(
+                        angle: controller.turns.value,
+                        child: Image.asset('assets/images/volante.png'),
+                      );
+                    })),
               ),
               const SizedBox(
                 height: 15,

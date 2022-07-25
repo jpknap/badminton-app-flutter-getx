@@ -40,7 +40,7 @@ class RivalsScreen extends GetWidget<HomeController> {
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                   Obx(() {
-                    final rivals = controller.rivals.value;
+                    List<Rival> rivals = controller.rivals.value;
                     return GridView.builder(
                         physics: const NeverScrollableScrollPhysics(),
                         padding: const EdgeInsets.all(15.0),

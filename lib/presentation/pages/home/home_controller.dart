@@ -83,6 +83,7 @@ class HomeController extends GetxController {
 
   void getRivals() async {
     rivals.value = await apiRepository.getRivals();
+    print(rivals.value.first.victories);
     rivals.refresh();
   }
 
@@ -133,10 +134,15 @@ class HomeController extends GetxController {
               finishedAt: DateTime.now(),
               userChanllengerPoints: _challendPoints,
               userChanllengingPoints: _challingPoints)));
+      await Future.delayed(Duration(milliseconds: 700));
       getMatchHistory();
       getMatchPending();
-      await Future.delayed(Duration(milliseconds: 700));
+      getRivals();
+      rivals.refresh();
+
       loading.value = false;
+      challendPoints.text = "";
+      challingPoints.text = "";
       Get.back();
     } else {
       Get.snackbar("Error Formulario", "Debes seleccionar un duelo.");

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:app_burger/domain/exception/auth_exception.dart';
+import 'package:app_burger/domain/exception/other_exception.dart';
 import 'package:app_burger/domain/model/rival.dart';
 import 'package:app_burger/domain/model/badminton_match.dart';
 import 'package:app_burger/domain/model/user.dart';
@@ -11,44 +12,60 @@ import 'package:app_burger/domain/response/login_response.dart';
 import 'package:app_burger/domain/request/login_request.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 
 const HOST = 'http://localhost:3000';
+const LOGIN = '/login';
+const LOGIN_TOKEN = '/login-token';
+const SAVE_RESULT = '/match/result';
 
 class ApiRepositoryNodeImpl implements ApiRepositoryInterface {
   @override
   Future<User> getUserFromToken(String token) async {
-    String response =
-        await http.read(Uri.parse("$HOST/login-token?token=$token"));
-    if (response.length > 10) {
-      dynamic _user = jsonDecode(response);
-      return User(
-          id: int.parse(_user['id']),
-          image: '',
-          name: _user['name'],
-          username: _user['email']);
+    try {
+      Map<String, String> body = {'token': token};
+
+      http.Response response = await postRequest("$HOST$LOGIN_TOKEN", "", body);
+      if (response.statusCode == 200) {
+        dynamic _user = jsonDecode(response.body);
+        return User(
+            id: _user['id'],
+            image: '',
+            name: _user['name'],
+            username: _user['email']);
+      }
+
+      throw AuthException();
+    } on Exception catch (_) {
+      throw OtherException();
     }
-    throw AuthException();
   }
 
   @override
   Future<LoginResponse> login(LoginRequest loginRequest) async {
-    String username = loginRequest.username;
-    String password = loginRequest.password;
+    try {
+      String username = loginRequest.username;
+      String password = loginRequest.password;
 
-    String response = await http
-        .read(Uri.parse("$HOST/login?email=$username&password=$password"));
-    if (response.length > 10) {
-      dynamic _user = jsonDecode(response);
-      return LoginResponse(
-          token: _user['token'],
-          user: User(
-              id: int.parse(_user['id']),
-              image: '',
-              name: _user['name'],
-              username: _user['email']));
+      Map<String, String> body = {'email': username, 'password': password};
+
+      http.Response response = await postRequest("$HOST$LOGIN", "", body);
+
+      if (response.statusCode == 200) {
+        dynamic user = jsonDecode(response.body);
+        return LoginResponse(
+            token: user['token'],
+            user: User(
+                id: user['id'],
+                image: '',
+                name: user['name'],
+                username: user['email']));
+      }
+
+      throw AuthException();
+    } on Exception catch (_) {
+      throw OtherException();
     }
-
-    throw AuthException();
   }
 
   @override
@@ -65,10 +82,10 @@ class ApiRepositoryNodeImpl implements ApiRepositoryInterface {
       for (dynamic _user in users) {
         rivals.add(Rival(
             name: _user['name'],
-            id: int.parse(_user['id']),
+            id: _user['id'],
             lastname: '',
-            victories: int.parse(_user['victories']),
-            losses: int.parse(_user['losses']),
+            victories: _user['victories'],
+            losses: _user['losses'],
             image: ''));
       }
     }
@@ -82,17 +99,24 @@ class ApiRepositoryNodeImpl implements ApiRepositoryInterface {
     List<BadmintonMatch> badmintonMatches = [];
     if (response.length > 10) {
       dynamic matchs = jsonDecode(response);
+      DateFormat dateFormat = DateFormat('d/MM/yyyy H:m');
       for (dynamic match in matchs) {
         badmintonMatches.add(BadmintonMatch(
             id: match['id'],
-            userChallenger: const User(
-                id: 1, name: 'name', username: 'username', image: 'image'),
-            userChallenging: const User(
-                id: 2, name: 'name', username: 'username', image: 'image'),
-            createdAt: DateTime.now().add(Duration(days: -3)),
+            userChallenger: User(
+                id: match['userChallenged']['id'],
+                name: match['userChallenged']['name'],
+                username: match['userChallenged']['email'],
+                image: 'image'),
+            userChallenging: User(
+                id: match['userChallenging']['id'],
+                name: match['userChallenging']['name'],
+                username: match['userChallenging']['email'],
+                image: 'image'),
+            createdAt: dateFormat.parse(match['created_at']),
             finishedAt: DateTime.now(),
-            userChanllengerPoints: int.parse(match['pointsChallenged']),
-            userChanllengingPoints: int.parse(match['pointsChallenging'])));
+            userChanllengerPoints: match['pointsChallenged'],
+            userChanllengingPoints: match['pointsChallenging']));
       }
     }
     return badmintonMatches;
@@ -105,15 +129,21 @@ class ApiRepositoryNodeImpl implements ApiRepositoryInterface {
     List<BadmintonMatch> badmintonMatches = [];
     if (response.length > 10) {
       dynamic matchs = jsonDecode(response);
+      DateFormat dateFormat = DateFormat('d/MM/yyyy H:m');
       for (dynamic match in matchs) {
-        print(match);
         badmintonMatches.add(BadmintonMatch(
             id: match['id'],
-            userChallenger: const User(
-                id: 1, name: 'name', username: 'username', image: 'image'),
-            userChallenging: const User(
-                id: 2, name: 'name', username: 'username', image: 'image'),
-            createdAt: DateTime.now().add(Duration(days: -3)),
+            userChallenger: User(
+                id: match['userChallenged']['id'],
+                name: match['userChallenged']['name'],
+                username: match['userChallenged']['email'],
+                image: 'image'),
+            userChallenging: User(
+                id: match['userChallenging']['id'],
+                name: match['userChallenging']['name'],
+                username: match['userChallenging']['email'],
+                image: 'image'),
+            createdAt: dateFormat.parse(match['created_at']),
             finishedAt: null,
             userChanllengerPoints: 0,
             userChanllengingPoints: 0));
@@ -129,9 +159,19 @@ class ApiRepositoryNodeImpl implements ApiRepositoryInterface {
     int pointsChallenging =
         saveResultMatchRequest.badmintonMatch.userChanllengingPoints ?? 0;
     int pointsChallenged =
-        saveResultMatchRequest.badmintonMatch.userChanllengingPoints ?? 0;
-    String response = await http.read(Uri.parse(
-        "$HOST/match/result?id=$idMatch&pointsChallenging=$pointsChallenging&pointsChallenged=$pointsChallenged"));
+        saveResultMatchRequest.badmintonMatch.userChanllengerPoints ?? 0;
+    try {
+      Map<String, dynamic> body = {
+        'id': idMatch,
+        'pointsChallenging': pointsChallenging,
+        'pointsChallenged': pointsChallenged
+      };
+
+      http.Response response = await postRequest("$HOST$SAVE_RESULT", "", body);
+      if (response.statusCode == 200) {}
+    } on Exception catch (_) {
+      throw OtherException();
+    }
   }
 
   @override
@@ -142,5 +182,15 @@ class ApiRepositoryNodeImpl implements ApiRepositoryInterface {
     String response = await http.read(Uri.parse(
         "$HOST/match/create?userChallenging=$idSelf&userChallenged=$idUser"));
     print("guardado");
+  }
+
+  Future<http.Response> postRequest(
+      String url, String token, Map<String, dynamic> body) async {
+    Map<String, String> headers = Map<String, String>();
+    headers.addAll({
+      'Content-Type': 'application/json; charset=UTF-8',
+    });
+    Object jsonBody = jsonEncode(body);
+    return await http.post(Uri.parse(url), headers: headers, body: jsonBody);
   }
 }

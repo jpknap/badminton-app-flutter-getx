@@ -15,132 +15,122 @@ class ResultMatchScreen extends GetWidget<HomeController> {
           SafeArea(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Container(
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 0, horizontal: 10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          IconButton(
-                            onPressed: () {
-                              Get.back();
-                            },
-                            icon: Icon(
-                              Icons.arrow_back,
-                              color:
-                                  Theme.of(context).textTheme.titleLarge!.color,
-                            ),
+              child: Column(
+                children: [
+                  Padding(
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            Get.back();
+                          },
+                          icon: Icon(
+                            Icons.arrow_back,
+                            color:
+                                Theme.of(context).textTheme.titleLarge!.color,
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 120),
-                            child: Center(
-                              child: Text("Resultado",
-                                  style:
-                                      Theme.of(context).textTheme.titleLarge!),
-                            ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 120),
+                          child: Center(
+                            child: Text("Resultado",
+                                style: Theme.of(context).textTheme.titleLarge!),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                    Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Padding(
+                  ),
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 20),
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
-                                Text("Nombre Apellido1"),
-                                Text("Nombre Apellido 2")
+                                Text(controller.badmintonMatchSelected!
+                                    .userChallenging.name),
+                                const SizedBox(
+                                  width: 30,
+                                ),
+                                Text(controller.badmintonMatchSelected!
+                                    .userChallenger.name)
                               ],
-                            ),
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Flexible(
-                            child: SizedBox(
-                              height: 100,
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                crossAxisAlignment: CrossAxisAlignment.stretch,
-                                children: [
-                                  SizedBox(
-                                    width: 80,
-                                    child: Flexible(
-                                      child: TextField(
-                                        controller: controller.challendPoints,
-                                        textAlignVertical:
-                                            TextAlignVertical.center,
-                                        textAlign: TextAlign.center,
-                                        decoration: const InputDecoration(
-                                          border: OutlineInputBorder(),
-                                          hintStyle: TextStyle(),
-                                          hintText: '?',
-                                        ),
-                                      ),
-                                    ),
+                            )),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        SizedBox(
+                          height: 100,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              SizedBox(
+                                width: 80,
+                                child: TextField(
+                                  controller: controller.challingPoints,
+                                  textAlignVertical: TextAlignVertical.center,
+                                  textAlign: TextAlign.center,
+                                  decoration: const InputDecoration(
+                                    border: OutlineInputBorder(),
+                                    hintStyle: TextStyle(),
+                                    hintText: '?',
                                   ),
-                                  Text(
-                                    "V/S",
-                                    textAlign: TextAlign.center,
-                                    style:
+                                ),
+                              ),
+                              Text(
+                                "V/S",
+                                textAlign: TextAlign.center,
+                                style: Theme.of(context).textTheme.titleLarge,
+                              ),
+                              SizedBox(
+                                width: 80,
+                                child: TextField(
+                                  controller: controller.challendPoints,
+                                  textAlignVertical: TextAlignVertical.center,
+                                  textAlign: TextAlign.center,
+                                  decoration: InputDecoration(
+                                    border: const OutlineInputBorder(),
+                                    hintStyle: const TextStyle(),
+                                    hintText: '?',
+                                    labelStyle:
                                         Theme.of(context).textTheme.titleLarge,
                                   ),
-                                  Container(
-                                    width: 80,
-                                    child: Flexible(
-                                      child: TextField(
-                                        controller: controller.challingPoints,
-                                        textAlignVertical:
-                                            TextAlignVertical.center,
-                                        textAlign: TextAlign.center,
-                                        decoration: InputDecoration(
-                                          border: OutlineInputBorder(),
-                                          hintStyle: TextStyle(),
-                                          hintText: '?',
-                                          labelStyle: Theme.of(context)
-                                              .textTheme
-                                              .titleLarge,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                                ),
                               ),
-                            ),
+                            ],
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                    Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Container(
-                            width: MediaQuery.of(context).size.width * 0.8,
-                            child: ElevatedButton(
-                              style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all(
-                                    DeliveryColors.purple),
-                              ),
-                              onPressed: () {
-                                controller.saveResultMatch();
-                              },
-                              child: const Text('Guardar resultado'),
+                  ),
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.8,
+                          child: ElevatedButton(
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(
+                                  DeliveryColors.purple),
                             ),
+                            onPressed: () {
+                              controller.saveResultMatch();
+                            },
+                            child: const Text('Guardar resultado'),
                           ),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
               ),
             ),
           ),
@@ -175,7 +165,7 @@ class _ItemProduct extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            CircleAvatar(
+            const CircleAvatar(
               radius: 35,
               child: Icon(
                 Icons.person,

@@ -59,13 +59,12 @@ class ApiRepositoryImpl implements ApiRepositoryInterface {
 
   @override
   Future<void> logout(String token) async {
-    print("remove token from server");
+    //print("remove token from server");
   }
 
   @override
   Future<void> createMatch(CreateDuelRequest createDuelRequest) async {
     await Future.delayed(const Duration(seconds: 2));
-    print("guardado");
   }
 
   @override
@@ -79,7 +78,7 @@ class ApiRepositoryImpl implements ApiRepositoryInterface {
                 id: 1, name: 'name', username: 'username', image: 'image'),
             userChallenging: const User(
                 id: 2, name: 'name', username: 'username', image: 'image'),
-            createdAt: DateTime.now().add(Duration(days: -3)),
+            createdAt: DateTime.now().add(const Duration(days: -3)),
             finishedAt: DateTime.now(),
             userChanllengerPoints: 20,
             userChanllengingPoints: 22));
@@ -88,15 +87,15 @@ class ApiRepositoryImpl implements ApiRepositoryInterface {
 
   @override
   Future<List<BadmintonMatch>> getPendingMatch(String token) async {
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 2));
     final List<BadmintonMatch> badmintonMatches = List.generate(
         13,
         (index) => BadmintonMatch(
             id: index,
-            userChallenger:
-                User(id: 1, name: 'name', username: 'username', image: 'image'),
-            userChallenging:
-                User(id: 2, name: 'name', username: 'username', image: 'image'),
+            userChallenger: const User(
+                id: 1, name: 'name', username: 'username', image: 'image'),
+            userChallenging: const User(
+                id: 2, name: 'name', username: 'username', image: 'image'),
             createdAt: DateTime.now(),
             finishedAt: null,
             userChanllengerPoints: null,
