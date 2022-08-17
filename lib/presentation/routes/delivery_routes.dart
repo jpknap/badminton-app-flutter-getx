@@ -3,6 +3,7 @@ import 'package:app_burger/presentation/pages/home/home_bindings.dart';
 import 'package:app_burger/presentation/pages/home/home_screen.dart';
 import 'package:app_burger/presentation/pages/home/profile/profile_binding.dart';
 import 'package:app_burger/presentation/pages/home/match_pending/result_match_screen.dart';
+import 'package:app_burger/presentation/pages/home/rivals/rival_profile_screen.dart';
 import 'package:app_burger/presentation/pages/login/login_binding.dart';
 import 'package:app_burger/presentation/pages/login/login_screen.dart';
 import 'package:app_burger/presentation/pages/splash/splash_binding.dart';
@@ -15,6 +16,7 @@ class DeliveryRoutes {
   static const String home = '/home';
   static const String selectUser = '/select-user';
   static const String resultMatch = '/result-match';
+  static const String rivalProfile = '/rival-profile';
 }
 
 class DeliveryPages {
@@ -41,6 +43,10 @@ class DeliveryPages {
           HomeBindings(),
         ]),
     GetPage(
-        name: DeliveryRoutes.resultMatch, page: () => const ResultMatchScreen())
+        name: DeliveryRoutes.resultMatch,
+        page: () => const ResultMatchScreen()),
+    GetPage(
+        name: DeliveryRoutes.rivalProfile,
+        page: () => const RivalProfileScreen())
   ];
 }

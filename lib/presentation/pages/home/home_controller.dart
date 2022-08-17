@@ -6,10 +6,11 @@ import 'package:app_burger/domain/repository/api_repository_interface.dart';
 import 'package:app_burger/domain/repository/local_repository_interface.dart';
 import 'package:app_burger/domain/request/create_duel_request.dart';
 import 'package:app_burger/domain/request/save_result_match_request.dart';
+import 'package:app_burger/presentation/routes/delivery_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class HomeController extends GetxController {
+class HomeController extends GetxController with WidgetsBindingObserver {
   final ApiRepositoryInterface apiRepository;
   final LocalRepositoryInterface localRepository;
 
@@ -21,6 +22,8 @@ class HomeController extends GetxController {
   Rx<List<Rival>> rivals = Rx<List<Rival>>([]);
   Rx<List<BadmintonMatch>> matchHisotry = Rx<List<BadmintonMatch>>([]);
   Rx<List<BadmintonMatch>> matchPending = Rx<List<BadmintonMatch>>([]);
+  Rival? rivalSelected = null;
+  User? userLogin = null;
   RxBool loading = RxBool(false);
 
   BadmintonMatch? badmintonMatchSelected = null;
@@ -29,10 +32,33 @@ class HomeController extends GetxController {
 
   @override
   void onReady() {
+    setUserLogin();
     getMatchHistory();
     getMatchPending();
     getRivals();
     super.onReady();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  void setUserLogin() async {
+    userLogin = await localRepository.getUser();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    print(state.toString());
+    if (state == AppLifecycleState.resumed) {
+      reloadElements();
+    }
+  }
+
+  void reloadElements() async {
+    loading.value = true;
+    getMatchHistory();
+    getMatchPending();
+    getRivals();
+    await Future.delayed(Duration(milliseconds: 500));
+    loading.value = false;
   }
 
   void addItem(Product product) {
@@ -82,7 +108,8 @@ class HomeController extends GetxController {
   }
 
   void getRivals() async {
-    rivals.value = await apiRepository.getRivals();
+    String token = await localRepository.getToken();
+    rivals.value = await apiRepository.getRivals(token);
     rivals.refresh();
   }
 
@@ -148,5 +175,14 @@ class HomeController extends GetxController {
       badmintonMatch = null;
       NullThrownError();
     }
+  }
+
+  void loadRivalSelectedProfileScreen(Rival rival) {
+    rivalSelected = rival;
+    Get.toNamed(DeliveryRoutes.rivalProfile);
+  }
+
+  Future<User> getUserLogin() async {
+    return await localRepository.getUser();
   }
 }

@@ -46,15 +46,14 @@ class Player extends StatelessWidget {
             DeliveryButton(
               onTap: () {
                 final controller = Get.find<HomeController>();
-                controller.setSelectUserRival(rival);
-                controller.setIndex(2);
+                controller.loadRivalSelectedProfileScreen(rival);
               },
               textStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
                   color: DeliveryColors.white,
                   fontSize: 15,
                   wordSpacing: 2,
                   letterSpacing: 1.2),
-              text: "Desafiar",
+              text: "Ver Perfil",
             ),
           ],
         ),

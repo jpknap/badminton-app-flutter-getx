@@ -14,12 +14,12 @@ import 'package:app_burger/domain/request/login_request.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 
-const HOST = 'http://localhost:3000';
+const HOST = 'https://warm-island-46858.herokuapp.com';
 const LOGIN = '/login';
 const LOGIN_TOKEN = '/login-token';
 const SAVE_RESULT = '/match/result';
 
-class ApiRepositoryNodeImpl implements ApiRepositoryInterface {
+class ApiRepositoryNodeHerokuImp implements ApiRepositoryInterface {
   @override
   Future<User> getUserFromToken(String token) async {
     try {
@@ -50,7 +50,6 @@ class ApiRepositoryNodeImpl implements ApiRepositoryInterface {
       Map<String, String> body = {'email': username, 'password': password};
 
       http.Response response = await postRequest("$HOST$LOGIN", "", body);
-
       if (response.statusCode == 200) {
         dynamic user = jsonDecode(response.body);
         return LoginResponse(
@@ -96,39 +95,6 @@ class ApiRepositoryNodeImpl implements ApiRepositoryInterface {
       }
     }
     return rivals;
-  }
-
-  List<BadmintonMatch> getMatchsJson(List<dynamic> matchs) {
-    List<BadmintonMatch> badmintonMatches = [];
-
-    matchs.forEach((item) {
-      badmintonMatches.add(getMatchJson(item));
-    });
-
-    return badmintonMatches;
-  }
-
-  BadmintonMatch getMatchJson(Map<String, dynamic> match) {
-    DateFormat dateFormat = DateFormat('d/MM/yyyy H:m');
-    Map<String, dynamic> userChanllend = match['userChallenged'];
-    Map<String, dynamic> userChallenging = match['userChallenging'];
-
-    return BadmintonMatch(
-        id: match['id'],
-        userChallenger: User(
-            id: userChanllend['id'],
-            name: userChanllend['name'],
-            username: userChanllend['email'],
-            image: 'image'),
-        userChallenging: User(
-            id: userChallenging['id'],
-            name: userChallenging['name'],
-            username: userChallenging['email'],
-            image: 'image'),
-        createdAt: dateFormat.parse(match['created_at']),
-        finishedAt: DateTime.now(),
-        userChanllengerPoints: match['pointsChallenged'],
-        userChanllengingPoints: match['pointsChallenging']);
   }
 
   @override
@@ -231,5 +197,38 @@ class ApiRepositoryNodeImpl implements ApiRepositoryInterface {
     });
     Object jsonBody = jsonEncode(body);
     return await http.post(Uri.parse(url), headers: headers, body: jsonBody);
+  }
+
+  List<BadmintonMatch> getMatchsJson(List<dynamic> matchs) {
+    List<BadmintonMatch> badmintonMatches = [];
+
+    matchs.forEach((item) {
+      badmintonMatches.add(getMatchJson(item));
+    });
+
+    return badmintonMatches;
+  }
+
+  BadmintonMatch getMatchJson(Map<String, dynamic> match) {
+    DateFormat dateFormat = DateFormat('d/MM/yyyy H:m');
+    Map<String, dynamic> userChanllend = match['userChallenged'];
+    Map<String, dynamic> userChallenging = match['userChallenging'];
+
+    return BadmintonMatch(
+        id: match['id'],
+        userChallenger: User(
+            id: userChanllend['id'],
+            name: userChanllend['name'],
+            username: userChanllend['email'],
+            image: 'image'),
+        userChallenging: User(
+            id: userChallenging['id'],
+            name: userChallenging['name'],
+            username: userChallenging['email'],
+            image: 'image'),
+        createdAt: dateFormat.parse(match['created_at']),
+        finishedAt: DateTime.now(),
+        userChanllengerPoints: match['pointsChallenged'],
+        userChanllengingPoints: match['pointsChallenging']);
   }
 }

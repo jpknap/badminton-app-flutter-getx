@@ -35,7 +35,7 @@ class ApiRepositoryImpl implements ApiRepositoryInterface {
   Future<LoginResponse> login(LoginRequest loginRequest) async {
     await Future.delayed(const Duration(seconds: 2));
 
-    if (loginRequest.username == 'test' &&
+    if (loginRequest.username == 'test@test.com' &&
         loginRequest.password == '123456789') {
       return LoginResponse(
           token: _tokenUser1,
@@ -70,24 +70,52 @@ class ApiRepositoryImpl implements ApiRepositoryInterface {
   @override
   Future<List<BadmintonMatch>> getHistoryMatch(String token) async {
     await Future.delayed(const Duration(seconds: 2));
-    final List<BadmintonMatch> badmintonMatches = List.generate(
-        13,
-        (index) => BadmintonMatch(
-            id: index,
-            userChallenger: const User(
-                id: 1, name: 'name', username: 'username', image: 'image'),
-            userChallenging: const User(
-                id: 2, name: 'name', username: 'username', image: 'image'),
-            createdAt: DateTime.now().add(const Duration(days: -3)),
-            finishedAt: DateTime.now(),
-            userChanllengerPoints: 20,
-            userChanllengingPoints: 22));
+    final List<BadmintonMatch> badmintonMatches = generadorBadmintonMatchs(
+        finishedAt: DateTime.now(),
+        userChanllengerPoints: 20,
+        userChanllengingPoints: 22);
     return badmintonMatches;
   }
 
   @override
   Future<List<BadmintonMatch>> getPendingMatch(String token) async {
     await Future.delayed(const Duration(seconds: 2));
+    final List<BadmintonMatch> badmintonMatches = generadorBadmintonMatchs();
+    return badmintonMatches;
+  }
+
+  @override
+  Future<List<Rival>> getRivals(String token) async {
+    await Future.delayed(Duration(seconds: 2));
+    List<BadmintonMatch> matchs = generadorBadmintonMatchs(
+        finishedAt: DateTime.now(),
+        userChanllengerPoints: 20,
+        userChanllengingPoints: 22);
+    final List<Rival> rivals = List.generate(
+        13,
+        (index) => Rival(
+            id: index,
+            name: "name " + index.toString(),
+            lastname: "apellido " + index.toString(),
+            victories: 0,
+            losses: 0,
+            image: '',
+            maxPointsMatch: matchs.first,
+            minPointsMatch: matchs.first,
+            vsMatchs: matchs,
+            lastsMatchs: matchs));
+    return rivals;
+  }
+
+  @override
+  Future<void> saveResultMatch(
+      SaveResultMatchRequest saveResultMatchRequest) async {
+    await Future.delayed(const Duration(seconds: 2));
+    print("guardado resut");
+  }
+
+  List<BadmintonMatch> generadorBadmintonMatchs(
+      {finishedAt, userChanllengerPoints, userChanllengingPoints}) {
     final List<BadmintonMatch> badmintonMatches = List.generate(
         13,
         (index) => BadmintonMatch(
@@ -97,31 +125,9 @@ class ApiRepositoryImpl implements ApiRepositoryInterface {
             userChallenging: const User(
                 id: 2, name: 'name', username: 'username', image: 'image'),
             createdAt: DateTime.now(),
-            finishedAt: null,
-            userChanllengerPoints: null,
-            userChanllengingPoints: null));
+            finishedAt: finishedAt,
+            userChanllengerPoints: userChanllengerPoints,
+            userChanllengingPoints: userChanllengingPoints));
     return badmintonMatches;
-  }
-
-  @override
-  Future<List<Rival>> getRivals() async {
-    await Future.delayed(Duration(seconds: 2));
-    final List<Rival> rivals = List.generate(
-        13,
-        (index) => Rival(
-            id: index,
-            name: "name " + index.toString(),
-            lastname: "apellido " + index.toString(),
-            victories: 0,
-            losses: 0,
-            image: ''));
-    return rivals;
-  }
-
-  @override
-  Future<void> saveResultMatch(
-      SaveResultMatchRequest saveResultMatchRequest) async {
-    await Future.delayed(const Duration(seconds: 2));
-    print("guardado resut");
   }
 }
